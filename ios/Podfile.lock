@@ -1,0 +1,67 @@
+PODS:
+  - Flutter (1.0.0)
+  - PlainPocketFFT (0.0.9)
+  - PocketFFT (0.0.1)
+  - RosaKit (0.0.11):
+    - PlainPocketFFT (~> 0.0.9)
+    - PocketFFT (~> 0.0.1)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - TensorFlowLiteC (2.6.0):
+    - TensorFlowLiteC/Core (= 2.6.0)
+  - TensorFlowLiteC/Core (2.6.0)
+  - TensorFlowLiteSelectTfOps (2.6.0)
+  - TensorFlowLiteSwift (2.6.0):
+    - TensorFlowLiteSwift/Core (= 2.6.0)
+  - TensorFlowLiteSwift/Core (2.6.0):
+    - TensorFlowLiteC (= 2.6.0)
+  - tflite_audio (0.3.0):
+    - Flutter
+    - RosaKit
+    - RxCocoa (= 6.5.0)
+    - RxSwift (= 6.5.0)
+    - TensorFlowLiteSwift (~> 2.6.0)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - TensorFlowLiteSelectTfOps (~> 2.6.0)
+  - tflite_audio (from `.symlinks/plugins/tflite_audio/ios`)
+
+SPEC REPOS:
+  trunk:
+    - PlainPocketFFT
+    - PocketFFT
+    - RosaKit
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - TensorFlowLiteC
+    - TensorFlowLiteSelectTfOps
+    - TensorFlowLiteSwift
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  tflite_audio:
+    :path: ".symlinks/plugins/tflite_audio/ios"
+
+SPEC CHECKSUMS:
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  PlainPocketFFT: 3763f37fba0737e457ed1a3b9b7bfa70c00ff213
+  PocketFFT: cdbe7ef5b7cd08520655d85d03d701b5ba35fdec
+  RosaKit: 6e28b09f5eb990148a401e0c4b4ff0c207bd6569
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  TensorFlowLiteC: 869f93708210ed939fc40f40c772a120b7f964d1
+  TensorFlowLiteSelectTfOps: a15cd8395c35c8bb64967e120edbb7ee54066ffb
+  TensorFlowLiteSwift: 78bc548132d2cae55643f3238359a24a6eb92b88
+  tflite_audio: 015c689256a19a84fad384c11c24f250756c8726
+
+PODFILE CHECKSUM: ef508639f7ad4d16613bd985f6cd0fe789bb60e6
+
+COCOAPODS: 1.14.3
