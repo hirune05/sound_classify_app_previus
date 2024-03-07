@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tflite_audio/tflite_audio.dart';
+import 'dart:convert'; // JSON文字列を扱うために必要
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     TfliteAudio.loadModel(
       model: 'assets/soundclassifier.tflite',
       label: 'assets/labels.txt',
+      outputRawScores: true, // Rawスコアを出力する
       numThreads: 1,
       isAsset: true,
       inputType: 'rawAudio',
@@ -40,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _recorder() {
-    String recognition = "";
     if (!_recording) {
       setState(() => _recording = true);
       result = TfliteAudio.startAudioRecognition(
@@ -48,46 +49,51 @@ class _MyHomePageState extends State<MyHomePage> {
         sampleRate: 44100,
         bufferSize: 22016,
       );
-      result.listen((event) {
-        recognition = event["recognitionResult"];
-      }).onDone(() {
+      result.listen((event) async {
+        // ラベルリストを非同期で取得
+        final labels = await fetchLabelList();
+        // recognitionResultからスコアのリストを取得
+        final rawScores = json.decode(event["recognitionResult"]);
+        List<double> scores = List<double>.from(rawScores);
+
+        // スコアをパーセント表示に変換し、それぞれのラベルと結合する
+        String recognitionResults = "";
+        for (int i = 0; i < scores.length; i++) {
+          recognitionResults +=
+              "${labels[i]}: ${(scores[i] * 100).toStringAsFixed(2)}%\n";
+        }
+
         setState(() {
           _recording = false;
-          _sound = recognition.split(" ")[1];
+          _sound = recognitionResults;
         });
       });
     }
   }
 
+  Future<List<String>> fetchLabelList() async {
+    final labelData = await rootBundle.loadString('assets/labels.txt');
+    return LineSplitter().convert(labelData);
+  }
+
   void _stop() {
     TfliteAudio.stopAudioRecognition();
-    setState(() => _recording = false);
+    setState(() {
+      _recording = false;
+      _sound = "Press the button to start";
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
                 padding: EdgeInsets.all(20),
-                child: Text(
-                  "What's this sound?",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 60,
-                    fontWeight: FontWeight.w200,
-                  ),
-                ),
               ),
               MaterialButton(
                 onPressed: _recorder,
@@ -98,7 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(25),
               ),
               Text(
-                '$_sound',
+                _sound,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
             ],
