@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tflite_audio/tflite_audio.dart';
 part 'recording_page_controller.freezed.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ArPage extends ConsumerWidget {
@@ -12,9 +11,9 @@ class ArPage extends ConsumerWidget {
         children: [
           ElevatedButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('POP'),
+            child: const Text('POP'),
           ),
-          Center(
+          const Center(
             child: Text('AR Page'),
           ),
         ],
