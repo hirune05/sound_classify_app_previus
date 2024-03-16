@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sound_classify_app/controllers/recording_page_controller.dart';
 
@@ -26,6 +27,12 @@ class RecordingPage extends ConsumerWidget {
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline5,
           ),
+          ref.watch(recordingProvider).isRecordingCompleted
+              ? ElevatedButton(
+                  onPressed: () => context.go('/home/ar'),
+                  child: const Text('ARで見る'),
+                )
+              : const SizedBox(),
         ],
       ),
     );
