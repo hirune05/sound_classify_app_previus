@@ -10,7 +10,8 @@ class RecordingState with _$RecordingState {
   const factory RecordingState({
     @Default("Press the button to start") String text,
     @Default(false) bool recording,
-    @Default({}) Map<String, double> sounds,
+    @Default({}) Map<String, double> sounds, //これを後にdetail.dartと連携
+    @Default(false) isRecordingCompleted,
   }) = _RecordingState;
 }
 
@@ -35,6 +36,15 @@ class RecordingController extends StateNotifier<RecordingState> {
     );
   }
 
+  void init() {
+    state = state.copyWith(
+      text: "Press the button to start",
+      recording: false,
+      sounds: {},
+      isRecordingCompleted: false,
+    );
+  }
+
   void startRecording() {
     const recording = true;
     state = state.copyWith(recording: recording);
@@ -48,22 +58,29 @@ class RecordingController extends StateNotifier<RecordingState> {
         sampleRate: 44100,
         bufferSize: 22016,
       );
-      sounds.listen((event) async {
-        // ラベルリストを非同期で取得
-        final labels = await fetchLabelList();
-        // recognitionResultからスコアのリストを取得
-        final rawScores = json.decode(event["recognitionResult"]);
-        List<double> scores = List<double>.from(rawScores);
+      sounds.listen(
+        (event) async {
+          // ラベルリストを非同期で取得
+          final labels = await fetchLabelList();
+          // recognitionResultからスコアのリストを取得
+          final rawScores = json.decode(event["recognitionResult"]);
+          List<double> scores = List<double>.from(rawScores);
 
-        // スコアをパーセント表示に変換し、それぞれのラベルと結合する
-        String recognitionResults = "";
-        for (int i = 0; i < scores.length; i++) {
-          recognitionResults +=
-              "${labels[i]}: ${(scores[i] * 100).toStringAsFixed(2)}%\n";
-        }
-        const recording = false;
-        state = state.copyWith(recording: recording, text: recognitionResults);
-      });
+          // スコアをパーセント表示に変換し、それぞれのラベルと結合する
+          String recognitionResults = "";
+          for (int i = 0; i < scores.length; i++) {
+            recognitionResults +=
+                "${labels[i]}: ${(scores[i] * 100).toStringAsFixed(2)}%\n";
+          }
+          const recording = false;
+          const isRecordingCompleted = true;
+          state = state.copyWith(
+            recording: recording,
+            text: recognitionResults,
+            isRecordingCompleted: isRecordingCompleted,
+          );
+        },
+      );
     }
   }
 

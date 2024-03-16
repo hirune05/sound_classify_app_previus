@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RecordingState {
   String get text => throw _privateConstructorUsedError;
   bool get recording => throw _privateConstructorUsedError;
-  Map<String, double> get sounds => throw _privateConstructorUsedError;
+  Map<String, double> get sounds =>
+      throw _privateConstructorUsedError; //これを後にdetail.dartと連携
+  dynamic get isRecordingCompleted => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RecordingStateCopyWith<RecordingState> get copyWith =>
@@ -31,7 +33,11 @@ abstract class $RecordingStateCopyWith<$Res> {
           RecordingState value, $Res Function(RecordingState) then) =
       _$RecordingStateCopyWithImpl<$Res, RecordingState>;
   @useResult
-  $Res call({String text, bool recording, Map<String, double> sounds});
+  $Res call(
+      {String text,
+      bool recording,
+      Map<String, double> sounds,
+      dynamic isRecordingCompleted});
 }
 
 /// @nodoc
@@ -50,6 +56,7 @@ class _$RecordingStateCopyWithImpl<$Res, $Val extends RecordingState>
     Object? text = null,
     Object? recording = null,
     Object? sounds = null,
+    Object? isRecordingCompleted = freezed,
   }) {
     return _then(_value.copyWith(
       text: null == text
@@ -64,6 +71,10 @@ class _$RecordingStateCopyWithImpl<$Res, $Val extends RecordingState>
           ? _value.sounds
           : sounds // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
+      isRecordingCompleted: freezed == isRecordingCompleted
+          ? _value.isRecordingCompleted
+          : isRecordingCompleted // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -76,7 +87,11 @@ abstract class _$$RecordingStateImplCopyWith<$Res>
       __$$RecordingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String text, bool recording, Map<String, double> sounds});
+  $Res call(
+      {String text,
+      bool recording,
+      Map<String, double> sounds,
+      dynamic isRecordingCompleted});
 }
 
 /// @nodoc
@@ -93,6 +108,7 @@ class __$$RecordingStateImplCopyWithImpl<$Res>
     Object? text = null,
     Object? recording = null,
     Object? sounds = null,
+    Object? isRecordingCompleted = freezed,
   }) {
     return _then(_$RecordingStateImpl(
       text: null == text
@@ -107,6 +123,9 @@ class __$$RecordingStateImplCopyWithImpl<$Res>
           ? _value._sounds
           : sounds // ignore: cast_nullable_to_non_nullable
               as Map<String, double>,
+      isRecordingCompleted: freezed == isRecordingCompleted
+          ? _value.isRecordingCompleted!
+          : isRecordingCompleted,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$RecordingStateImpl implements _RecordingState {
   const _$RecordingStateImpl(
       {this.text = "Press the button to start",
       this.recording = false,
-      final Map<String, double> sounds = const {}})
+      final Map<String, double> sounds = const {},
+      this.isRecordingCompleted = false})
       : _sounds = sounds;
 
   @override
@@ -135,9 +155,14 @@ class _$RecordingStateImpl implements _RecordingState {
     return EqualUnmodifiableMapView(_sounds);
   }
 
+//これを後にdetail.dartと連携
+  @override
+  @JsonKey()
+  final dynamic isRecordingCompleted;
+
   @override
   String toString() {
-    return 'RecordingState(text: $text, recording: $recording, sounds: $sounds)';
+    return 'RecordingState(text: $text, recording: $recording, sounds: $sounds, isRecordingCompleted: $isRecordingCompleted)';
   }
 
   @override
@@ -148,12 +173,18 @@ class _$RecordingStateImpl implements _RecordingState {
             (identical(other.text, text) || other.text == text) &&
             (identical(other.recording, recording) ||
                 other.recording == recording) &&
-            const DeepCollectionEquality().equals(other._sounds, _sounds));
+            const DeepCollectionEquality().equals(other._sounds, _sounds) &&
+            const DeepCollectionEquality()
+                .equals(other.isRecordingCompleted, isRecordingCompleted));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text, recording,
-      const DeepCollectionEquality().hash(_sounds));
+  int get hashCode => Object.hash(
+      runtimeType,
+      text,
+      recording,
+      const DeepCollectionEquality().hash(_sounds),
+      const DeepCollectionEquality().hash(isRecordingCompleted));
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +198,8 @@ abstract class _RecordingState implements RecordingState {
   const factory _RecordingState(
       {final String text,
       final bool recording,
-      final Map<String, double> sounds}) = _$RecordingStateImpl;
+      final Map<String, double> sounds,
+      final dynamic isRecordingCompleted}) = _$RecordingStateImpl;
 
   @override
   String get text;
@@ -175,6 +207,8 @@ abstract class _RecordingState implements RecordingState {
   bool get recording;
   @override
   Map<String, double> get sounds;
+  @override //これを後にdetail.dartと連携
+  dynamic get isRecordingCompleted;
   @override
   @JsonKey(ignore: true)
   _$$RecordingStateImplCopyWith<_$RecordingStateImpl> get copyWith =>
