@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sound_classify_app/pages/ar_page/ar_page.dart';
-import 'package:sound_classify_app/pages/recording_page/recording_page.dart';
+import 'package:sound_classify_app/ui/pages/ar_page/ar_page.dart';
+import 'package:sound_classify_app/ui/pages/recording_page/recording_page.dart';
 
 final routerProvider = Provider(
   (ref) => GoRouter(
@@ -28,11 +28,6 @@ final routerProvider = Provider(
 CustomTransitionPage<T> buildTransitionPage<T>({
   required Widget child,
 }) {
-  if (child == null) {
-    // エラー処理など
-    throw ArgumentError('Child widget must not be null');
-  }
-
   return CustomTransitionPage<T>(
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {

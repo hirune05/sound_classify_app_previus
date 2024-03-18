@@ -58,19 +58,26 @@ class RecordingController extends StateNotifier<RecordingState> {
         sampleRate: 44100,
         bufferSize: 22016,
       );
+      final sound_kinds = [
+        '皿の音',
+        '機械音',
+        '換気扇の音',
+        'キーボードの音',
+        '話し声',
+      ];
       sounds.listen(
         (event) async {
           // ラベルリストを非同期で取得
-          final labels = await fetchLabelList();
+          //final labels = await fetchLabelList();
           // recognitionResultからスコアのリストを取得
           final rawScores = json.decode(event["recognitionResult"]);
           List<double> scores = List<double>.from(rawScores);
 
           // スコアをパーセント表示に変換し、それぞれのラベルと結合する
           String recognitionResults = "";
-          for (int i = 0; i < scores.length; i++) {
+          for (int i = 0; i < scores.length - 1; i++) {
             recognitionResults +=
-                "${labels[i]}: ${(scores[i] * 100).toStringAsFixed(2)}%\n";
+                "${sound_kinds[i]}: ${(scores[i] * 100).toStringAsFixed(2)}%\n";
           }
           const recording = false;
           const isRecordingCompleted = true;
