@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sound_classify_app/controllers/recording_page_controller.dart';
 import 'package:sound_classify_app/thems/app_colors.dart';
+import 'package:sound_classify_app/ui/components/result_text.dart';
+import 'package:sound_classify_app/ui/components/small_radius_button.dart';
 
 class RecordingPage extends ConsumerWidget {
   const RecordingPage({super.key});
@@ -17,36 +19,30 @@ class RecordingPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            MaterialButton(
-              onPressed: ref.read(recordingProvider.notifier).analyseSound,
-              color: ref.watch(recordingProvider).recording
-                  ? AppColors.gray
-                  : AppColors.green,
-              textColor: Colors.white,
-              child: Icon(Icons.mic, size: 60),
-              shape: CircleBorder(),
-              padding: EdgeInsets.all(25),
-            ),
-            Text(
-              ref.watch(recordingProvider).text,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 32),
-            ),
+            buildRecordButton(ref),
+            const ResultText(),
             ref.watch(recordingProvider).isRecordingCompleted
-                ? ElevatedButton(
+                ? SmallRadiusPinkButton(
+                    text: const Text('ARで見る'),
                     onPressed: () => context.go('/home/ar'),
-                    child: const Text('ARで見る'),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: AppColors.white,
-                      backgroundColor: AppColors.pink,
-                      textStyle: const TextStyle(fontSize: 24),
-                      fixedSize: const Size(160, 52),
-                    ),
                   )
                 : const SizedBox(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildRecordButton(WidgetRef ref) {
+    return MaterialButton(
+      onPressed: ref.read(recordingProvider.notifier).analyseSound,
+      color: ref.watch(recordingProvider).recording
+          ? AppColors.gray
+          : AppColors.green,
+      textColor: Colors.white,
+      shape: const CircleBorder(),
+      padding: const EdgeInsets.all(25),
+      child: const Icon(Icons.mic, size: 60),
     );
   }
 }

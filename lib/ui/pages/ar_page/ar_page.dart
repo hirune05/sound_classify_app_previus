@@ -6,18 +6,13 @@ class ArPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('POP'),
-          ),
-          const Center(
-            child: Text('AR Page'),
-          ),
+      appBar: AppBar(
+        title: const Text('AR'),
+        actions: const [
+          Icon(Icons.ios_share, size: 40),
         ],
       ),
+      body: const Center(),
     );
   }
 }
