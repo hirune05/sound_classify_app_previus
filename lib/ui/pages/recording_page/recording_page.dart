@@ -5,6 +5,7 @@ import 'package:sound_classify_app/controllers/recording_page_controller.dart';
 import 'package:sound_classify_app/models/detail.dart';
 import 'package:sound_classify_app/thems/app_colors.dart';
 import 'package:sound_classify_app/ui/components/result_text.dart';
+import 'package:sound_classify_app/ui/components/share_dialog.dart';
 import 'package:sound_classify_app/ui/components/small_radius_button.dart';
 
 class RecordingPage extends ConsumerWidget {
@@ -65,31 +66,6 @@ class RecordingPage extends ConsumerWidget {
       shape: const CircleBorder(),
       padding: const EdgeInsets.all(25),
       child: const Icon(Icons.mic, size: 60),
-    );
-  }
-}
-
-class ShareDetailDialog extends StatelessWidget {
-  const ShareDetailDialog({Key? key, required Detail this.detail})
-      : super(key: key);
-
-  final Detail detail;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('情報の共有'),
-      content: const Text('音声解析の結果と場所を共有しますか？'),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('キャンセル'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('共有'),
-        ),
-      ],
     );
   }
 }
