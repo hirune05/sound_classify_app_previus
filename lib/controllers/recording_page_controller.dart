@@ -2,15 +2,16 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sound_classify_app/models/detail.dart';
 import 'package:tflite_audio/tflite_audio.dart';
+import 'package:geolocator/geolocator.dart';
 part 'recording_page_controller.freezed.dart';
 
 @freezed
 class RecordingState with _$RecordingState {
   const factory RecordingState({
-    @Default("Press the button to start") String text,
     @Default(false) bool recording,
-    @Default({}) Map<String, double> sounds, //これを後にdetail.dartと連携
+    Detail? detail, //これを後にdetail.dartと連携
     @Default(false) isRecordingCompleted,
   }) = _RecordingState;
 }
@@ -38,9 +39,7 @@ class RecordingController extends StateNotifier<RecordingState> {
 
   void init() {
     state = state.copyWith(
-      text: "Press the button to start",
       recording: false,
-      sounds: {},
       isRecordingCompleted: false,
     );
   }
@@ -53,7 +52,7 @@ class RecordingController extends StateNotifier<RecordingState> {
   Future<void> analyseSound() async {
     if (!state.recording) {
       startRecording();
-      final sounds = TfliteAudio.startAudioRecognition(
+      final soundsInfo = TfliteAudio.startAudioRecognition(
         numOfInferences: 1,
         sampleRate: 44100,
         bufferSize: 22016,
@@ -65,7 +64,8 @@ class RecordingController extends StateNotifier<RecordingState> {
         'キーボードの音',
         '話し声',
       ];
-      sounds.listen(
+      final Map<String, double> sounds = {};
+      soundsInfo.listen(
         (event) async {
           // ラベルリストを非同期で取得
           //final labels = await fetchLabelList();
@@ -74,17 +74,15 @@ class RecordingController extends StateNotifier<RecordingState> {
           List<double> scores = List<double>.from(rawScores);
 
           // スコアをパーセント表示に変換し、それぞれのラベルと結合する
-          String recognitionResults = "";
           for (int i = 0; i < scores.length - 1; i++) {
-            recognitionResults +=
-                "${sound_kinds[i]}: ${(scores[i] * 100).toStringAsFixed(2)}%\n";
+            sounds.addEntries([MapEntry(sound_kinds[i], scores[i])]);
           }
           const recording = false;
           const isRecordingCompleted = true;
           state = state.copyWith(
             recording: recording,
-            text: recognitionResults,
             isRecordingCompleted: isRecordingCompleted,
+            detail: Detail(sounds: sounds),
           );
         },
       );
@@ -99,7 +97,42 @@ class RecordingController extends StateNotifier<RecordingState> {
   void stopRecording() {
     TfliteAudio.stopAudioRecognition();
     const recording = false;
-    const text = "Press the button to start";
-    state = state.copyWith(recording: recording, text: text);
+    state = state.copyWith(
+      recording: recording,
+    );
+  }
+
+  Future<void> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    final location;
+    final lat;
+    final long;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    location = await Geolocator.getCurrentPosition();
+    lat = location.latitude;
+    long = location.longitude;
+
+    state = state.copyWith(
+        detail:
+            Detail(lat: lat, long: long, sounds: state.detail?.sounds ?? {}));
   }
 }

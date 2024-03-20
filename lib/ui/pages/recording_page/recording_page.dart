@@ -14,6 +14,18 @@ class RecordingPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('SoundFit'),
+        actions: [
+          ref.watch(recordingProvider).isRecordingCompleted
+              ? TextButton(
+                  onPressed:
+                      ref.read(recordingProvider.notifier).determinePosition,
+                  child: const Icon(
+                    Icons.ios_share,
+                    size: 40,
+                    color: AppColors.secondaryText,
+                  ))
+              : const SizedBox(),
+        ],
       ),
       body: Center(
         child: Column(
@@ -22,11 +34,15 @@ class RecordingPage extends ConsumerWidget {
             buildRecordButton(ref),
             const ResultText(),
             ref.watch(recordingProvider).isRecordingCompleted
-                ? SmallRadiusPinkButton(
+                ? Text(ref.watch(recordingProvider).detail.toString())
+                /*SmallRadiusPinkButton(
                     text: const Text('ARで見る'),
                     onPressed: () => context.go('/home/ar'),
-                  )
-                : const SizedBox(),
+                  )*/
+                : const Text(
+                    'ボタンを押してください',
+                    style: TextStyle(fontSize: 32),
+                  ),
           ],
         ),
       ),

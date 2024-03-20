@@ -7,10 +7,20 @@ class ResultText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Text(
-      ref.watch(recordingProvider).text,
-      textAlign: TextAlign.left,
-      style: const TextStyle(fontSize: 32),
+    final sounds = ref.watch(recordingProvider).detail?.sounds;
+    List<Widget> textWidgets = [];
+    sounds?.forEach((key, value) {
+      textWidgets.add(
+        Text(
+          "$key: ${(value * 100).toStringAsFixed(2)}%",
+          style: const TextStyle(fontSize: 32),
+        ),
+      );
+    });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: textWidgets,
     );
   }
 }

@@ -14,10 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Detail _$DetailFromJson(Map<String, dynamic> json) {
+  return _Detail.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Detail {
+  double? get lat => throw _privateConstructorUsedError;
+  double? get long => throw _privateConstructorUsedError;
   Map<String, double> get sounds => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DetailCopyWith<Detail> get copyWith => throw _privateConstructorUsedError;
 }
@@ -27,7 +34,7 @@ abstract class $DetailCopyWith<$Res> {
   factory $DetailCopyWith(Detail value, $Res Function(Detail) then) =
       _$DetailCopyWithImpl<$Res, Detail>;
   @useResult
-  $Res call({Map<String, double> sounds});
+  $Res call({double? lat, double? long, Map<String, double> sounds});
 }
 
 /// @nodoc
@@ -43,9 +50,19 @@ class _$DetailCopyWithImpl<$Res, $Val extends Detail>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? lat = freezed,
+    Object? long = freezed,
     Object? sounds = null,
   }) {
     return _then(_value.copyWith(
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      long: freezed == long
+          ? _value.long
+          : long // ignore: cast_nullable_to_non_nullable
+              as double?,
       sounds: null == sounds
           ? _value.sounds
           : sounds // ignore: cast_nullable_to_non_nullable
@@ -61,7 +78,7 @@ abstract class _$$DetailImplCopyWith<$Res> implements $DetailCopyWith<$Res> {
       __$$DetailImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, double> sounds});
+  $Res call({double? lat, double? long, Map<String, double> sounds});
 }
 
 /// @nodoc
@@ -75,9 +92,19 @@ class __$$DetailImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? lat = freezed,
+    Object? long = freezed,
     Object? sounds = null,
   }) {
     return _then(_$DetailImpl(
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      long: freezed == long
+          ? _value.long
+          : long // ignore: cast_nullable_to_non_nullable
+              as double?,
       sounds: null == sounds
           ? _value._sounds
           : sounds // ignore: cast_nullable_to_non_nullable
@@ -88,11 +115,24 @@ class __$$DetailImplCopyWithImpl<$Res>
 
 /// @nodoc
 
+@JsonSerializable(explicitToJson: true)
 class _$DetailImpl extends _Detail {
-  const _$DetailImpl({final Map<String, double> sounds = const {}})
+  const _$DetailImpl(
+      {this.lat = 0,
+      this.long = 0,
+      final Map<String, double> sounds = const {}})
       : _sounds = sounds,
         super._();
 
+  factory _$DetailImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DetailImplFromJson(json);
+
+  @override
+  @JsonKey()
+  final double? lat;
+  @override
+  @JsonKey()
+  final double? long;
   final Map<String, double> _sounds;
   @override
   @JsonKey()
@@ -104,7 +144,7 @@ class _$DetailImpl extends _Detail {
 
   @override
   String toString() {
-    return 'Detail(sounds: $sounds)';
+    return 'Detail(lat: $lat, long: $long, sounds: $sounds)';
   }
 
   @override
@@ -112,24 +152,43 @@ class _$DetailImpl extends _Detail {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DetailImpl &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.long, long) || other.long == long) &&
             const DeepCollectionEquality().equals(other._sounds, _sounds));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_sounds));
+  int get hashCode => Object.hash(
+      runtimeType, lat, long, const DeepCollectionEquality().hash(_sounds));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DetailImplCopyWith<_$DetailImpl> get copyWith =>
       __$$DetailImplCopyWithImpl<_$DetailImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DetailImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Detail extends Detail {
-  const factory _Detail({final Map<String, double> sounds}) = _$DetailImpl;
+  const factory _Detail(
+      {final double? lat,
+      final double? long,
+      final Map<String, double> sounds}) = _$DetailImpl;
   const _Detail._() : super._();
 
+  factory _Detail.fromJson(Map<String, dynamic> json) = _$DetailImpl.fromJson;
+
+  @override
+  double? get lat;
+  @override
+  double? get long;
   @override
   Map<String, double> get sounds;
   @override

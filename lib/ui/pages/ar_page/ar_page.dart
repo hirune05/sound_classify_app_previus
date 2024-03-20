@@ -8,9 +8,6 @@ class ArPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AR'),
-        actions: const [
-          Icon(Icons.ios_share, size: 40),
-        ],
       ),
       body: const Center(),
     );

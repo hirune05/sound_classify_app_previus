@@ -38,6 +38,8 @@ dependencies:
   build_runner: ^2.4.8
   freezed: ^2.4.7
   firebase_core: ^2.24.2
+  geolocator: ^11.0.0
+  json_serializable: ^6.7.1
 
 dev_dependencies:
   flutter_test:
