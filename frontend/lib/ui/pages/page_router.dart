@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sound_classify_app/ui/pages/ar_page/ar_page.dart';
+import 'package:sound_classify_app/ui/pages/hearing_page/hearing_page.dart';
+import 'package:sound_classify_app/ui/pages/home_page/home_page.dart';
 import 'package:sound_classify_app/ui/pages/recording_page/recording_page.dart';
 
 final routerProvider = Provider(
@@ -10,13 +12,26 @@ final routerProvider = Provider(
       GoRoute(
         path: '/',
         pageBuilder: (context, state) => buildTransitionPage(
-          child: const RecordingPage(), //一番最初のページ
+          child: const HomePage(), //一番最初のページ
         ),
         routes: <RouteBase>[
           GoRoute(
-            path: 'home/ar',
+              path: 'home/seeing',
+              pageBuilder: (context, state) => buildTransitionPage(
+                    child: const RecordingPage(),
+                  ),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'ar',
+                  pageBuilder: (context, state) => buildTransitionPage(
+                    child: const ArPage(),
+                  ),
+                ),
+              ]),
+          GoRoute(
+            path: 'home/listening',
             pageBuilder: (context, state) => buildTransitionPage(
-              child: const ArPage(),
+              child: const HearingPage(),
             ),
           ),
         ],
