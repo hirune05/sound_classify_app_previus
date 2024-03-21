@@ -44,7 +44,7 @@ class RecordingPage extends ConsumerWidget {
             ref.watch(recordingProvider).isRecordingCompleted
                 ? SmallRadiusPinkButton(
                     text: const Text('ARで見る'),
-                    onPressed: () => context.go('/home/ar'),
+                    onPressed: () => context.go('/home/seeing/ar'),
                   )
                 : const Text(
                     'ボタンを押してください',
