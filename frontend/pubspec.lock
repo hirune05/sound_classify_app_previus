@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.2"
+  arkit_plugin:
+    dependency: "direct main"
+    description:
+      name: arkit_plugin
+      sha256: "5ab6307a209c8748416db488fa292e5b4e9a8db8f8dac7af70669d21a9251b3b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   async:
     dependency: transitive
     description:
@@ -138,7 +146,7 @@ packages:
     source: hosted
     version: "4.10.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -662,7 +670,7 @@ packages:
     source: hosted
     version: "4.2.2"
   vector_math:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: vector_math
       sha256: "80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803"

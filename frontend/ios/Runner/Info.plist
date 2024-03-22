@@ -6,6 +6,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>音の位置情報を共有するために使用します</string>
+	<key>NSCameraUsageDescription</key>
+	<string>ARで音を表示するために使用します</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>音の分類のために使用します。</string>
 	<key>CFBundleDisplayName</key>
