@@ -37,6 +37,9 @@ dependencies:
   freezed_annotation: ^2.4.1
   build_runner: ^2.4.8
   freezed: ^2.4.7
+  collection: ^1.18.0
+  vector_math: ^2.1.4
+  arkit_plugin: ^1.0.7
 
 dev_dependencies:
   flutter_test:
