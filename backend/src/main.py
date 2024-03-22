@@ -1,17 +1,24 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
 
 import librosa
 import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 import soundfile as sf
+import ffmpeg
+
+# m4a形式の音声ファイルをmp3形式に変換
+path = "sample.m4a"
+to = "mp3"
+s = ffmpeg.input(path)
+s = ffmpeg.output(s, f"{path.split('.')[0]}.{to}")
+ffmpeg.run(s)
+
 
 # 入力音源のパス
-input_path = "C:/Users/ttymy/Dots to Code/sample.mp3"
+input_path = "sample.mp3"
 
 # 特定の周波数帯域
 target_low = 2000  # 例: 2000 Hz
@@ -21,7 +28,7 @@ target_high = 4000  # 例: 4000 Hz（警報器や赤ちゃんの声のような�
 amplification_factor = 2.5
 
 # 音声データの読み込み
-y, sr = librosa.load(input_path, sr=None)
+y, sr = librosa.load(input_path, sr=70000)
 
 # 短時間フーリエ変換（STFT）を実行
 D = librosa.stft(y)
@@ -46,9 +53,15 @@ D_amplified = librosa.db_to_amplitude(D_magnitude_db_amplified) * D_phase
 y_amplified = librosa.istft(D_amplified)
 
 # 出力音源のパス
-output_path = "C:/Users/ttymy/Dots to Code/amplified_sample.wav"
+output_path = "aftersample.wav"
 
 # 出力音源の保存
 sf.write(output_path, y_amplified, sr)
 
-print(f"Amplified audio saved to: {output_path}")
+# wav形式の音声ファイルをm4a形式に変換
+input_file = "aftersample.wav"
+output_file = "aftersample.m4a"
+
+stream = ffmpeg.input(input_file)
+stream = ffmpeg.output(stream, output_file, acodec="aac", vcodec="copy")
+ffmpeg.run(stream)
