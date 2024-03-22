@@ -24,7 +24,7 @@ final routerProvider = Provider(
                 GoRoute(
                   path: 'ar',
                   pageBuilder: (context, state) => buildTransitionPage(
-                    child: const ArPage(),
+                    child: ArPage(),
                   ),
                 ),
               ]),
