@@ -41,22 +41,38 @@ class ArPage extends ConsumerWidget {
     final fanVolume = sounds?['換気扇の音'];
     final keybordVolume = sounds?['キーボードの音'];
     final speakingVolume = sounds?['話し声'];
-    addNode(arkitController, 'assets/glb/cone.glb', dishVolume!);
-    addNode(arkitController, 'assets/glb/coral.glb', electronicVolume!);
-    addNode(arkitController, 'assets/glb/mofu.glb', fanVolume!);
-    addNode(arkitController, 'assets/glb/Rock.glb', keybordVolume!);
-    addNode(arkitController, 'assets/glb/Rock2.glb', speakingVolume!);
+    for (int i = 0; i <= (dishVolume! * 6).toInt(); i++) {
+      addNode(arkitController, 'assets/glb/Dish.glb', dishVolume,
+          Random().nextDouble() + 0.1);
+    }
+    for (int i = 0; i <= (electronicVolume! * 6).toInt(); i++) {
+      addNode(arkitController, 'assets/glb/coral.glb', electronicVolume,
+          Random().nextDouble() - 0.5);
+    }
+    for (int i = 0; i <= (fanVolume! * 6).toInt(); i++) {
+      addNode(arkitController, 'assets/glb/Fan.glb', fanVolume,
+          Random().nextDouble() - 0.2);
+    }
+    for (int i = 0; i <= (keybordVolume! * 6).toInt(); i++) {
+      addNode(arkitController, 'assets/glb/Rock.glb', keybordVolume,
+          Random().nextDouble() + 0.3);
+    }
+    for (int i = 0; i <= (speakingVolume! * 6).toInt(); i++) {
+      addNode(arkitController, 'assets/glb/mofu.glb', speakingVolume,
+          Random().nextDouble() * -0.3);
+    }
   }
 
-  void addNode(ARKitController arkitController, String url, double volume) {
+  void addNode(ARKitController arkitController, String url, double volume,
+      double random) {
     final position = vector.Vector3(
-      Random().nextDouble() * 0.5,
-      Random().nextDouble() * 0.5,
-      Random().nextDouble() * 0.5,
+      random * (-2),
+      0,
+      random * (-10),
     );
 
     // 音の大きさに応じてARオブジェクトの拡大率を設定
-    double scale = 0.1 + volume * 0.05;
+    double scale = 0.18 + volume * 0.2;
 
     final node = _getNodeFromFlutterAsset(position, scale, url);
     arkitController.add(node);
