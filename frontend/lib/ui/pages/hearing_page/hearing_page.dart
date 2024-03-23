@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:path_provider/path_provider.dart';
 
-class HearingPage extends StatelessWidget {
+class HearingPage extends StatefulWidget {
   const HearingPage({Key? key}) : super(key: key);
+
+  @override
+  State<HearingPage> createState() => _HearingPageState();
+}
+
+class _HearingPageState extends State<HearingPage> {
+  final audioPlayer = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    _startPlaying();
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.release();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,4 +35,14 @@ class HearingPage extends StatelessWidget {
       ),
     );
   }
+
+  // 再生開始
+  Future<void> _startPlaying() async {
+    // 再生するファイルを指定
+    final localFile = await _getLocalFile('aftersample.m4a');
+    
+    // 再生開始
+    await audioPlayer.play(DeviceFileSource(localFile));
+  }
+
 }
