@@ -38,11 +38,8 @@ class _HearingPageState extends State<HearingPage> {
 
   // 再生開始
   Future<void> _startPlaying() async {
-    // 再生するファイルを指定
-    final localFile = await _getLocalFile('aftersample.m4a');
-    
     // 再生開始
-    await audioPlayer.play(DeviceFileSource(localFile));
+    await audioPlayer.play('aftersample.m4a');
   }
 
 }
