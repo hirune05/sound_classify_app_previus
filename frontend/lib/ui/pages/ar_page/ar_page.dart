@@ -46,7 +46,7 @@ class ArPage extends ConsumerWidget {
           Random().nextDouble() + 0.1);
     }
     for (int i = 0; i <= (electronicVolume! * 6).toInt(); i++) {
-      addNode(arkitController, 'assets/glb/coral.glb', electronicVolume,
+      addNode(arkitController, 'assets/glb/slider.glb', electronicVolume,
           Random().nextDouble() - 0.5);
     }
     for (int i = 0; i <= (fanVolume! * 6).toInt(); i++) {
@@ -66,7 +66,7 @@ class ArPage extends ConsumerWidget {
   void addNode(ARKitController arkitController, String url, double volume,
       double random) {
     final position = vector.Vector3(
-      random * (-2),
+      random * (-1),
       0,
       random * (-10),
     );
