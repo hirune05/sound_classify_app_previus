@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sound_classify_app/controllers/recording_page_controller.dart';
-import 'package:sound_classify_app/models/detail.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 // 音声認識のデータから音の大きさを取得する関数
