@@ -39,7 +39,6 @@ class _HearingPageState extends State<HearingPage> {
   // 再生開始
   Future<void> _startPlaying() async {
     // 再生開始
-    await audioPlayer.play('aftersample.m4a');
+    await audioPlayer.play(AssetSource('aftersample.m4a'));
   }
-
 }
