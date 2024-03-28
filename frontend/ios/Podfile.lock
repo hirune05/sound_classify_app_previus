@@ -2,6 +2,8 @@ PODS:
   - arkit_plugin (0.0.1):
     - Flutter
     - GLTFSceneKit
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - Firebase/CoreOnly (10.18.0):
     - FirebaseCore (= 10.18.0)
   - firebase_core (2.24.2):
@@ -26,6 +28,9 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.13.0)":
     - GoogleUtilities/Privacy
   - GoogleUtilities/Privacy (7.13.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - PlainPocketFFT (0.0.9)
   - PocketFFT (0.0.1)
   - PromisesObjC (2.4.0)
@@ -55,9 +60,11 @@ PODS:
 
 DEPENDENCIES:
   - arkit_plugin (from `.symlinks/plugins/arkit_plugin/ios`)
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - TensorFlowLiteSelectTfOps (~> 2.6.0)
   - tflite_audio (from `.symlinks/plugins/tflite_audio/ios`)
 
@@ -82,17 +89,22 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   arkit_plugin:
     :path: ".symlinks/plugins/arkit_plugin/ios"
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
   geolocator_apple:
     :path: ".symlinks/plugins/geolocator_apple/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   tflite_audio:
     :path: ".symlinks/plugins/tflite_audio/ios"
 
 SPEC CHECKSUMS:
   arkit_plugin: bb56e71ef215147316ecf3774d5cb74beda20a10
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
   firebase_core: 0af4a2b24f62071f9bf283691c0ee41556dcb3f5
   FirebaseCore: 2322423314d92f946219c8791674d2f3345b598f
@@ -101,6 +113,7 @@ SPEC CHECKSUMS:
   geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
   GLTFSceneKit: d1b437c514ba2aed5555afb0fddd64e030612d57
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
+  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   PlainPocketFFT: 3763f37fba0737e457ed1a3b9b7bfa70c00ff213
   PocketFFT: cdbe7ef5b7cd08520655d85d03d701b5ba35fdec
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
