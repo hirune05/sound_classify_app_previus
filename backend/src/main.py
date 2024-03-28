@@ -10,7 +10,7 @@ import soundfile as sf
 import ffmpeg
 
 # m4a形式の音声ファイルをmp3形式に変換
-path = "sample.m4a"
+path = "../frontend/assets/audio/sample.m4a"
 to = "mp3"
 s = ffmpeg.input(path)
 s = ffmpeg.output(s, f"{path.split('.')[0]}.{to}")
@@ -18,7 +18,7 @@ ffmpeg.run(s)
 
 
 # 入力音源のパス
-input_path = "sample.mp3"
+input_path = "../frontend/assets/audio/sample.mp3"
 
 # 特定の周波数帯域
 target_low = 2000  # 例: 2000 Hz
@@ -53,14 +53,14 @@ D_amplified = librosa.db_to_amplitude(D_magnitude_db_amplified) * D_phase
 y_amplified = librosa.istft(D_amplified)
 
 # 出力音源のパス
-output_path = "aftersample.wav"
+output_path = "../frontend/assets/audio/aftersample.wav"
 
 # 出力音源の保存
 sf.write(output_path, y_amplified, sr)
 
 # wav形式の音声ファイルをm4a形式に変換
-input_file = "aftersample.wav"
-output_file = "aftersample.m4a"
+input_file = "../frontend/assets/audio/aftersample.wav"
+output_file = "../frontend/assets/audio/aftersample.m4a"
 
 stream = ffmpeg.input(input_file)
 stream = ffmpeg.output(stream, output_file, acodec="aac", vcodec="copy")
