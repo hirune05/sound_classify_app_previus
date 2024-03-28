@@ -50,7 +50,7 @@ class ArPage extends ConsumerWidget {
           Random().nextDouble() - 0.5);
     }
     for (int i = 0; i <= (fanVolume! * 6).toInt(); i++) {
-      addNode(arkitController, 'assets/glb/Fan.glb', fanVolume,
+      addNode(arkitController, 'assets/glb/cloud.glb', fanVolume,
           Random().nextDouble() - 0.2);
     }
     for (int i = 0; i <= (keybordVolume! * 6).toInt(); i++) {
