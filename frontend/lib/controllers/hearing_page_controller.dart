@@ -27,7 +27,7 @@ class HearingController extends StateNotifier<HearingState> {
     _player = AudioPlayer();
     final session = await AudioSession.instance;
     await session.configure(AudioSessionConfiguration.speech());
-    await _loadAudioFile();
+    await _loadAudioFile('assets/sounds/aftersample.m4a');
   }
 
   @override
@@ -36,18 +36,17 @@ class HearingController extends StateNotifier<HearingState> {
     super.dispose();
   }
 
-  Future<void> playSoundFile() async {
+  Future<void> playSoundFile(String filename) async {
     // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
     if (_player.processingState == ProcessingState.completed) {
-      await _loadAudioFile();
+      await _loadAudioFile(filename);
     }
     await _player.play();
   }
 
-  Future<void> _loadAudioFile() async {
+  Future<void> _loadAudioFile(String filename) async {
     try {
-      await _player
-          .setAsset('assets/sounds/aftersample.m4a'); // アセット(ローカル)のファイル
+      await _player.setAsset(filename); // アセット(ローカル)のファイル
     } catch (e) {
       print(e);
     }
