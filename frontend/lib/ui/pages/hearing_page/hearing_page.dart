@@ -5,7 +5,6 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class HearingPage extends StatefulWidget {
   const HearingPage({super.key});
   @override
@@ -164,4 +163,3 @@ class _AudioRecorderExampleState extends State<HearingPage> {
     );
   }
 }
-

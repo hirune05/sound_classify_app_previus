@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0ECD52E8F545A56DCE424C3A /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EC8C33A2B4BC993D31BB325 /* Pods_RunnerTests.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		19940B3DB4C5BF4C2D0F0394 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F23BB2717D67E11E9082F85D /* GoogleService-Info.plist */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
@@ -15,6 +14,8 @@
 		4AD981041F264BF8BAF7248A /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46D38979F9CF5F18776412C /* Pods_Runner.framework */; };
 		6EB966B72BB5C0F5005850F2 /* RunnerTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 331C8081294A63A400263BE5 /* RunnerTests.xctest */; };
 		6EB966B82BB5C0F8005850F2 /* Runner.app in Resources */ = {isa = PBXBuildFile; fileRef = 97C146EE1CF9000F007C117D /* Runner.app */; };
+		6EB966B92BB5C68F005850F2 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EC8C33A2B4BC993D31BB325 /* Pods_RunnerTests.framework */; };
+		6EB966BA2BB5C68F005850F2 /* Pods_RunnerTests.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5EC8C33A2B4BC993D31BB325 /* Pods_RunnerTests.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -32,6 +33,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6EB966BB2BB5C68F005850F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6EB966BA2BB5C68F005850F2 /* Pods_RunnerTests.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ECD52E8F545A56DCE424C3A /* Pods_RunnerTests.framework in Frameworks */,
+				6EB966B92BB5C68F005850F2 /* Pods_RunnerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +192,7 @@
 				331C807D294A63A400263BE5 /* Sources */,
 				331C807F294A63A400263BE5 /* Resources */,
 				949A32C0E23866FE5251A879 /* Frameworks */,
+				6EB966BB2BB5C68F005850F2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
