@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 
 class HearingPage extends StatefulWidget {
   const HearingPage({Key? key}) : super(key: key);
@@ -10,17 +10,49 @@ class HearingPage extends StatefulWidget {
 }
 
 class _HearingPageState extends State<HearingPage> {
-  final audioPlayer = AudioPlayer();
+  late AudioPlayer _player;
+  String _stateSource = 'アセットを再生';
 
   @override
   void initState() {
     super.initState();
-    _startPlaying();
+    _setupSession();
+
+    // AudioPlayerの状態を取得
+    _player.playbackEventStream.listen((event) {
+      switch (event.processingState) {
+        case ProcessingState.idle:
+          print('オーディオファイルをロードしていないよ');
+          break;
+        case ProcessingState.loading:
+          print('オーディオファイルをロード中だよ');
+          break;
+        case ProcessingState.buffering:
+          print('バッファリング(読み込み)中だよ');
+          break;
+        case ProcessingState.ready:
+          print('再生できるよ');
+          break;
+        case ProcessingState.completed:
+          print('再生終了したよ');
+          break;
+        default:
+          print(event.processingState);
+          break;
+      }
+    });
+  }
+
+  Future<void> _setupSession() async {
+    _player = AudioPlayer();
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.speech());
+    await _loadAudioFile();
   }
 
   @override
   void dispose() {
-    audioPlayer.release();
+    _player.dispose();
     super.dispose();
   }
 
@@ -28,17 +60,41 @@ class _HearingPageState extends State<HearingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('聞いて体験'),
+        title: Text(''),
       ),
-      body: const Center(
-        child: Text('音声解析ページ'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(_stateSource),
+            IconButton(
+              icon: const Icon(Icons.play_arrow),
+              onPressed: () async => await _playSoundFile(),
+            ),
+            IconButton(
+              icon: const Icon(Icons.pause),
+              onPressed: () async => await _player.pause(),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  // 再生開始
-  Future<void> _startPlaying() async {
-    // 再生開始
-    await audioPlayer.play(AssetSource('aftersample.m4a'));
+  Future<void> _playSoundFile() async {
+    // 再生終了状態の場合、新たなオーディオファイルを定義し再生できる状態にする
+    if (_player.processingState == ProcessingState.completed) {
+      await _loadAudioFile();
+    }
+    await _player.play();
+  }
+
+  Future<void> _loadAudioFile() async {
+    try {
+      await _player
+          .setAsset('assets/sounds/aftersample.m4a'); // アセット(ローカル)のファイル
+    } catch (e) {
+      print(e);
+    }
   }
 }
