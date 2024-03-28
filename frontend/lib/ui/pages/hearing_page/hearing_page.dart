@@ -164,3 +164,4 @@ class _AudioRecorderExampleState extends State<HearingPage> {
     );
   }
 }
+
