@@ -31,7 +31,7 @@ final routerProvider = Provider(
           GoRoute(
             path: 'home/listening',
             pageBuilder: (context, state) => buildTransitionPage(
-              child: const HearingPage(),
+              child: HearingPage(),
             ),
           ),
         ],
