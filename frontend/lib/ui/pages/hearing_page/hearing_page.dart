@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sound_classify_app/controllers/hearing_page_controller.dart';
+import 'package:sound_classify_app/controllers/recording_page_controller.dart';
+import 'package:sound_classify_app/thems/app_colors.dart';
 
 class HearingPage extends ConsumerWidget {
   const HearingPage({Key? key}) : super(key: key);
@@ -16,20 +18,33 @@ class HearingPage extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              buildRecordButton(ref),
+              Text('録音を始める'),
               buildReplayButton(
                   ref: ref,
-                  label: const Text('目の前の人との会話。聴覚過敏だとこう聞こえる。なんと言っているか聞こえるかな？',
-                      style: TextStyle(fontSize: 20)),
-                  filename: 'assets/sounds/amplication.mp3'),
-              buildReplayButton(
-                  ref: ref,
-                  label: const Text('正解は...? 聞いてみよう',
-                      style: TextStyle(fontSize: 20)),
+                  label: const Text('拡張前', style: TextStyle(fontSize: 20)),
                   filename: 'assets/sounds/sample.mp3'),
+              buildReplayButton(
+                  ref: ref,
+                  label: const Text('拡張後', style: TextStyle(fontSize: 20)),
+                  filename: 'assets/sounds/amplication.mp3'),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildRecordButton(WidgetRef ref) {
+    return MaterialButton(
+      onPressed: ref.read(recordingProvider.notifier).analyseSound,
+      color: ref.watch(recordingProvider).recording
+          ? AppColors.gray
+          : AppColors.green,
+      textColor: Colors.white,
+      shape: const CircleBorder(),
+      padding: const EdgeInsets.all(25),
+      child: const Icon(Icons.mic, size: 60),
     );
   }
 
