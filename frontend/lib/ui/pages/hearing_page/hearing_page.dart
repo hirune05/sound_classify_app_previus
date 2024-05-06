@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:sound_classify_app/thems/app_colors.dart';
 
 class HearingPage extends StatefulWidget {
-  const HearingPage({Key? key}) : super(key: key);
+  const HearingPage();
 
   @override
   State<HearingPage> createState() => _HearingPageState();
@@ -11,17 +12,36 @@ class HearingPage extends StatefulWidget {
 
 class _HearingPageState extends State<HearingPage> {
   final audioPlayer = AudioPlayer();
+  bool isRecordingButtonDisabled = false;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    _startPlaying();
   }
 
   @override
   void dispose() {
-    audioPlayer.release();
+    audioPlayer.dispose();
+    _timer?.cancel();
     super.dispose();
+  }
+
+  void _handleRecordingButtonPressed() {
+    setState(() {
+      isRecordingButtonDisabled = true;
+    });
+
+    _timer = Timer(const Duration(seconds: 3), () {
+      setState(() {
+        isRecordingButtonDisabled = false;
+      });
+    });
+  }
+
+  Future<void> playAudio() async {
+    final audioPlayer = AudioPlayer();
+    audioPlayer.play(AssetSource('audio/aftersample.m4a'));
   }
 
   @override
@@ -30,15 +50,65 @@ class _HearingPageState extends State<HearingPage> {
       appBar: AppBar(
         title: const Text('聞いて体験'),
       ),
-      body: const Center(
-        child: Text('音声解析ページ'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '録音をはじめる',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+                color: AppColors.secondaryText,
+              ),
+            ),
+            MaterialButton(
+              onPressed: isRecordingButtonDisabled
+                  ? null
+                  : _handleRecordingButtonPressed,
+              color: isRecordingButtonDisabled ? Colors.grey : AppColors.green,
+              textColor: Colors.white,
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(25),
+              child: const Icon(Icons.mic, size: 40),
+            ),
+            Icon(
+              Icons.arrow_drop_down,
+              size: 60,
+              color: AppColors.secondaryText,
+            ),
+            Text(
+              '聴覚過敏の聞こえ方',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25.0,
+                color: AppColors.secondaryText,
+              ),
+            ),
+            Icon(
+              Icons.arrow_drop_down,
+              size: 60,
+              color: AppColors.secondaryText,
+            ),
+            MaterialButton(
+              onPressed: playAudio,
+              color: AppColors.green,
+              textColor: Colors.white,
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(25),
+              child: const Icon(Icons.mic, size: 40),
+            ),
+            Text(
+              '再生する',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+                color: AppColors.secondaryText,
+              ),
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  // 再生開始
-  Future<void> _startPlaying() async {
-    // 再生開始
-    await audioPlayer.play(AssetSource('aftersample.m4a'));
   }
 }
