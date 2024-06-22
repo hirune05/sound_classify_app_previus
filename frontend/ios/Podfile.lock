@@ -34,6 +34,8 @@ PODS:
   - PlainPocketFFT (0.0.9)
   - PocketFFT (0.0.1)
   - PromisesObjC (2.4.0)
+  - record (0.0.1):
+    - Flutter
   - RosaKit (0.0.11):
     - PlainPocketFFT (~> 0.0.9)
     - PocketFFT (~> 0.0.1)
@@ -65,6 +67,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - record (from `.symlinks/plugins/record/ios`)
   - TensorFlowLiteSelectTfOps (~> 2.6.0)
   - tflite_audio (from `.symlinks/plugins/tflite_audio/ios`)
 
@@ -99,6 +102,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/geolocator_apple/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  record:
+    :path: ".symlinks/plugins/record/ios"
   tflite_audio:
     :path: ".symlinks/plugins/tflite_audio/ios"
 
@@ -117,6 +122,7 @@ SPEC CHECKSUMS:
   PlainPocketFFT: 3763f37fba0737e457ed1a3b9b7bfa70c00ff213
   PocketFFT: cdbe7ef5b7cd08520655d85d03d701b5ba35fdec
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  record: cae05d8dd3cdb1dea3511b20e5a5811a1ae00d0d
   RosaKit: 6e28b09f5eb990148a401e0c4b4ff0c207bd6569
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
