@@ -4,7 +4,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sound_classify_app/controllers/audio_recording_page_controller.dart';
 import 'package:sound_classify_app/thems/app_colors.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class HearingPage extends ConsumerWidget {
   final audioPlayer = AudioPlayer();
@@ -59,6 +58,12 @@ class HearingPage extends ConsumerWidget {
               size: 60,
               color: AppColors.secondaryText,
             ),
+            if (!isRecording &&
+                ref.watch(audioRecordingProvider).audioPath != '')
+              ElevatedButton(
+                  onPressed:
+                      ref.read(audioRecordingProvider.notifier).uploadAudioFile,
+                  child: const Text('アップロードする')),
             const Text(
               '聴覚過敏の聞こえ方',
               style: TextStyle(

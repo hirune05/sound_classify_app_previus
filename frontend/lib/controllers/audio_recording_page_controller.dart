@@ -5,6 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:record/record.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 
 part 'audio_recording_page_controller.freezed.dart';
 
@@ -119,6 +121,28 @@ class AudioRecordingController extends StateNotifier<AudioRecordingState> {
       }
     } catch (e) {
       print('Error Play Recording:$e');
+    }
+  }
+
+  Future<void> uploadAudioFile() async {
+    try {
+      // UUIDを生成
+      var uuid = Uuid();
+      String uniqueFileName = uuid.v4();
+
+      // タイムスタンプを使ってファイル名をユニークにする
+      String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      String fileName = 'record_${uniqueFileName}_$timestamp.m4a';
+
+      // ファイルをアップロード
+      File file = File(state.audioPath);
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref = storage.ref().child('audio_files/$fileName');
+      UploadTask uploadTask = ref.putFile(file);
+      await uploadTask;
+      print('File uploaded to Firebase Storage');
+    } catch (e) {
+      print('Error uploading file: $e');
     }
   }
 
