@@ -1,14 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:record/record.dart';
-import 'package:sound_classify_app/models/detail.dart';
-import 'package:tflite_audio/tflite_audio.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'audio_recording_page_controller.freezed.dart';
