@@ -17,8 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AudioRecordingState {
   bool get recording => throw _privateConstructorUsedError;
-  dynamic get isRecordingCompleted => throw _privateConstructorUsedError;
-  dynamic get audioPath => throw _privateConstructorUsedError;
+  bool get isRecordingCompleted => throw _privateConstructorUsedError;
+  String get audioPath => throw _privateConstructorUsedError;
+  String get fileName => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AudioRecordingStateCopyWith<AudioRecordingState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $AudioRecordingStateCopyWith<$Res> {
           AudioRecordingState value, $Res Function(AudioRecordingState) then) =
       _$AudioRecordingStateCopyWithImpl<$Res, AudioRecordingState>;
   @useResult
-  $Res call({bool recording, dynamic isRecordingCompleted, dynamic audioPath});
+  $Res call(
+      {bool recording,
+      bool isRecordingCompleted,
+      String audioPath,
+      String fileName});
 }
 
 /// @nodoc
@@ -48,22 +53,27 @@ class _$AudioRecordingStateCopyWithImpl<$Res, $Val extends AudioRecordingState>
   @override
   $Res call({
     Object? recording = null,
-    Object? isRecordingCompleted = freezed,
-    Object? audioPath = freezed,
+    Object? isRecordingCompleted = null,
+    Object? audioPath = null,
+    Object? fileName = null,
   }) {
     return _then(_value.copyWith(
       recording: null == recording
           ? _value.recording
           : recording // ignore: cast_nullable_to_non_nullable
               as bool,
-      isRecordingCompleted: freezed == isRecordingCompleted
+      isRecordingCompleted: null == isRecordingCompleted
           ? _value.isRecordingCompleted
           : isRecordingCompleted // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      audioPath: freezed == audioPath
+              as bool,
+      audioPath: null == audioPath
           ? _value.audioPath
           : audioPath // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
+      fileName: null == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$AudioRecordingStateImplCopyWith<$Res>
       __$$AudioRecordingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool recording, dynamic isRecordingCompleted, dynamic audioPath});
+  $Res call(
+      {bool recording,
+      bool isRecordingCompleted,
+      String audioPath,
+      String fileName});
 }
 
 /// @nodoc
@@ -91,18 +105,27 @@ class __$$AudioRecordingStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? recording = null,
-    Object? isRecordingCompleted = freezed,
-    Object? audioPath = freezed,
+    Object? isRecordingCompleted = null,
+    Object? audioPath = null,
+    Object? fileName = null,
   }) {
     return _then(_$AudioRecordingStateImpl(
       recording: null == recording
           ? _value.recording
           : recording // ignore: cast_nullable_to_non_nullable
               as bool,
-      isRecordingCompleted: freezed == isRecordingCompleted
-          ? _value.isRecordingCompleted!
-          : isRecordingCompleted,
-      audioPath: freezed == audioPath ? _value.audioPath! : audioPath,
+      isRecordingCompleted: null == isRecordingCompleted
+          ? _value.isRecordingCompleted
+          : isRecordingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      audioPath: null == audioPath
+          ? _value.audioPath
+          : audioPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      fileName: null == fileName
+          ? _value.fileName
+          : fileName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -113,21 +136,25 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
   const _$AudioRecordingStateImpl(
       {this.recording = false,
       this.isRecordingCompleted = false,
-      this.audioPath = ''});
+      this.audioPath = '',
+      this.fileName = ''});
 
   @override
   @JsonKey()
   final bool recording;
   @override
   @JsonKey()
-  final dynamic isRecordingCompleted;
+  final bool isRecordingCompleted;
   @override
   @JsonKey()
-  final dynamic audioPath;
+  final String audioPath;
+  @override
+  @JsonKey()
+  final String fileName;
 
   @override
   String toString() {
-    return 'AudioRecordingState(recording: $recording, isRecordingCompleted: $isRecordingCompleted, audioPath: $audioPath)';
+    return 'AudioRecordingState(recording: $recording, isRecordingCompleted: $isRecordingCompleted, audioPath: $audioPath, fileName: $fileName)';
   }
 
   @override
@@ -137,17 +164,17 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
             other is _$AudioRecordingStateImpl &&
             (identical(other.recording, recording) ||
                 other.recording == recording) &&
-            const DeepCollectionEquality()
-                .equals(other.isRecordingCompleted, isRecordingCompleted) &&
-            const DeepCollectionEquality().equals(other.audioPath, audioPath));
+            (identical(other.isRecordingCompleted, isRecordingCompleted) ||
+                other.isRecordingCompleted == isRecordingCompleted) &&
+            (identical(other.audioPath, audioPath) ||
+                other.audioPath == audioPath) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      recording,
-      const DeepCollectionEquality().hash(isRecordingCompleted),
-      const DeepCollectionEquality().hash(audioPath));
+      runtimeType, recording, isRecordingCompleted, audioPath, fileName);
 
   @JsonKey(ignore: true)
   @override
@@ -160,15 +187,18 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
 abstract class _AudioRecordingState implements AudioRecordingState {
   const factory _AudioRecordingState(
       {final bool recording,
-      final dynamic isRecordingCompleted,
-      final dynamic audioPath}) = _$AudioRecordingStateImpl;
+      final bool isRecordingCompleted,
+      final String audioPath,
+      final String fileName}) = _$AudioRecordingStateImpl;
 
   @override
   bool get recording;
   @override
-  dynamic get isRecordingCompleted;
+  bool get isRecordingCompleted;
   @override
-  dynamic get audioPath;
+  String get audioPath;
+  @override
+  String get fileName;
   @override
   @JsonKey(ignore: true)
   _$$AudioRecordingStateImplCopyWith<_$AudioRecordingStateImpl> get copyWith =>

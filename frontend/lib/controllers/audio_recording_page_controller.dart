@@ -16,6 +16,7 @@ class AudioRecordingState with _$AudioRecordingState {
     @Default(false) bool recording,
     @Default(false) bool isRecordingCompleted,
     @Default('') String audioPath,
+    @Default('') String fileName,
   }) = _AudioRecordingState;
 }
 
@@ -133,6 +134,7 @@ class AudioRecordingController extends StateNotifier<AudioRecordingState> {
       // タイムスタンプを使ってファイル名をユニークにする
       String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
       String fileName = 'record_${uniqueFileName}_$timestamp.m4a';
+      state = state.copyWith(fileName: fileName);
 
       // ファイルをアップロード
       File file = File(state.audioPath);
@@ -146,17 +148,29 @@ class AudioRecordingController extends StateNotifier<AudioRecordingState> {
     }
   }
 
-  // Future<void> uploadAudioFile() async {
-  //   try {
-  //     String filePath = state.audioPath;
-  //     File file = File(filePath);
-  //     FirebaseStorage storage = FirebaseStorage.instance;
-  //     Reference ref = storage.ref().child('audio_files/record.m4a');
-  //     UploadTask uploadTask = ref.putFile(file);
-  //     await uploadTask;
-  //     print('File uploaded to Firebase Storage');
-  //   } catch (e) {
-  //     print('Error uploading file: $e');
-  //   }
-  // }
+  Future<void> downloadAndPlayAudioFile() async {
+    try {
+      String fileName = state.fileName;
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref = storage.ref().child('audio_files/$fileName');
+
+      final Directory systemTempDir = Directory.systemTemp;
+      final File tempFile = File('${systemTempDir.path}/record.m4a');
+      if (tempFile.existsSync()) {
+        await tempFile.delete();
+      }
+      await ref.writeToFile(tempFile);
+      print('Processed file downloaded from Firebase Storage');
+
+      // ダウンロードしたファイルを再生
+      Source urlSource = DeviceFileSource(tempFile.path);
+      await audioPlayer.play(urlSource);
+
+      // 再生後にファイルを削除
+      await ref.delete();
+      print('File deleted from Firebase Storage');
+    } catch (e) {
+      print('Error downloading or playing file: $e');
+    }
+  }
 }

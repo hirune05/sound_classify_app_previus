@@ -64,6 +64,13 @@ class HearingPage extends ConsumerWidget {
                   onPressed:
                       ref.read(audioRecordingProvider.notifier).uploadAudioFile,
                   child: const Text('アップロードする')),
+            if (!isRecording &&
+                ref.watch(audioRecordingProvider).audioPath != '')
+              ElevatedButton(
+                  onPressed: ref
+                      .read(audioRecordingProvider.notifier)
+                      .downloadAndPlayAudioFile,
+                  child: const Text('ダウンロードして聴く')),
             const Text(
               '聴覚過敏の聞こえ方',
               style: TextStyle(
