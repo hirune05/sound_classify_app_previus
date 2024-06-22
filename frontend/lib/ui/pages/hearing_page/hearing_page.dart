@@ -11,25 +11,6 @@ class HearingPage extends ConsumerWidget {
   bool isRecordingButtonDisabled = false;
   Timer? _timer;
 
-  // @override
-  // void dispose() {
-  //   audioPlayer.dispose();
-  //   _timer?.cancel();
-  //   super.dispose();
-  // }
-
-  // void _handleRecordingButtonPressed() {
-  //   setState(() {
-  //     isRecordingButtonDisabled = true;
-  //   });
-
-  //   _timer = Timer(const Duration(seconds: 3), () {
-  //     setState(() {
-  //       isRecordingButtonDisabled = false;
-  //     });
-  //   });
-  // }
-
   Future<void> playAudio() async {
     final audioPlayer = AudioPlayer();
     audioPlayer.play(AssetSource('audio/aftersample.m4a'));
