@@ -49,10 +49,13 @@ class HearingPage extends ConsumerWidget {
             ),
             if (!isRecording &&
                 ref.watch(audioRecordingProvider).audioPath != '')
-              ElevatedButton(
-                  onPressed:
-                      ref.read(audioRecordingProvider.notifier).playRecording,
-                  child: const Text('再生する')),
+              MaterialButton(
+                onPressed:
+                    ref.read(audioRecordingProvider.notifier).playRecording,
+                textColor: AppColors.secondaryText,
+                child: const Icon(Icons.volume_up, size: 40),
+                padding: const EdgeInsets.only(top: 12),
+              ),
             const Icon(
               Icons.arrow_drop_down,
               size: 60,
@@ -61,45 +64,53 @@ class HearingPage extends ConsumerWidget {
             if (!isRecording &&
                 ref.watch(audioRecordingProvider).audioPath != '')
               ElevatedButton(
-                  onPressed:
-                      ref.read(audioRecordingProvider.notifier).uploadAudioFile,
-                  child: const Text('アップロードする')),
-            if (!isRecording &&
-                ref.watch(audioRecordingProvider).audioPath != '')
-              ElevatedButton(
-                  onPressed: ref
-                      .read(audioRecordingProvider.notifier)
-                      .downloadAndPlayAudioFile,
-                  child: const Text('ダウンロードして聴く')),
-            const Text(
-              '聴覚過敏の聞こえ方',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                color: AppColors.secondaryText,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),
+                onPressed:
+                    ref.read(audioRecordingProvider.notifier).uploadAudioFile,
+                child: const Text(
+                  'アップロード(変換)する',
+                  style: TextStyle(color: AppColors.green),
+                ),
               ),
-            ),
             const Icon(
               Icons.arrow_drop_down,
               size: 60,
               color: AppColors.secondaryText,
             ),
-            MaterialButton(
-              onPressed: playAudio,
-              color: AppColors.green,
-              textColor: Colors.white,
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(25),
-              child: const Icon(Icons.mic, size: 40),
-            ),
-            const Text(
-              '再生する',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 40.0,
-                color: AppColors.secondaryText,
-              ),
-            ),
+            (!isRecording && ref.watch(audioRecordingProvider).audioPath != '')
+                ? Column(
+                    children: [
+                      MaterialButton(
+                        onPressed: ref
+                            .read(audioRecordingProvider.notifier)
+                            .downloadAndPlayAudioFile,
+                        color: AppColors.green,
+                        textColor: Colors.white,
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(25),
+                        child: const Icon(Icons.volume_up, size: 40),
+                      ),
+                      const Text(
+                        '聴覚過敏の聞こえ方',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                          color: AppColors.secondaryText,
+                        ),
+                      ),
+                      const Text(
+                        '再生する',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40.0,
+                          color: AppColors.secondaryText,
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ),

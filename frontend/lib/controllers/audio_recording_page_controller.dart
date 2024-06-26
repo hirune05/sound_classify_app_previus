@@ -167,8 +167,8 @@ class AudioRecordingController extends StateNotifier<AudioRecordingState> {
       await audioPlayer.play(urlSource);
 
       // 再生後にファイルを削除
-      await ref.delete();
-      print('File deleted from Firebase Storage');
+      // await ref.delete();
+      // print('File deleted from Firebase Storage');
     } catch (e) {
       print('Error downloading or playing file: $e');
     }
