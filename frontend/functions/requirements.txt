@@ -1,0 +1,9 @@
+firebase_functions~=0.1.0
+librosa
+numpy
+matplotlib
+soundfile
+ffmpeg-python
+google-cloud-storage
+firebase-admin
+firebase-functions
