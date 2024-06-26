@@ -56,32 +56,38 @@ class HearingPage extends ConsumerWidget {
                 child: const Icon(Icons.volume_up, size: 40),
                 padding: const EdgeInsets.only(top: 12),
               ),
-            const Icon(
-              Icons.arrow_drop_down,
-              size: 60,
-              color: AppColors.secondaryText,
-            ),
-            if (!isRecording &&
-                ref.watch(audioRecordingProvider).audioPath != '')
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),
-                onPressed:
-                    ref.read(audioRecordingProvider.notifier).uploadAudioFile,
-                child: const Text(
-                  'アップロード(変換)する',
-                  style: TextStyle(color: AppColors.green),
-                ),
-              ),
-            const Icon(
-              Icons.arrow_drop_down,
-              size: 60,
-              color: AppColors.secondaryText,
-            ),
             (!isRecording && ref.watch(audioRecordingProvider).audioPath != '')
                 ? Column(
                     children: [
+                      const Icon(
+                        Icons.arrow_drop_down,
+                        size: 60,
+                        color: AppColors.secondaryText,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        onPressed: ref
+                            .read(audioRecordingProvider.notifier)
+                            .uploadAudioFile,
+                        child: const Text(
+                          'アップロード(変換)する',
+                          style: TextStyle(color: AppColors.green),
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
+            (!isRecording &&
+                    ref.watch(audioRecordingProvider).isRecordUploaded == true)
+                ? Column(
+                    children: [
+                      const Icon(
+                        Icons.arrow_drop_down,
+                        size: 60,
+                        color: AppColors.secondaryText,
+                      ),
                       MaterialButton(
                         onPressed: ref
                             .read(audioRecordingProvider.notifier)

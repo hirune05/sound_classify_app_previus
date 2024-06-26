@@ -15,6 +15,7 @@ class AudioRecordingState with _$AudioRecordingState {
   const factory AudioRecordingState({
     @Default(false) bool recording,
     @Default(false) bool isRecordingCompleted,
+    @Default(false) bool isRecordUploaded,
     @Default('') String audioPath,
     @Default('') String fileName,
   }) = _AudioRecordingState;
@@ -94,6 +95,7 @@ class AudioRecordingController extends StateNotifier<AudioRecordingState> {
           recording: false,
           isRecordingCompleted: true,
           audioPath: newPath,
+          isRecordUploaded: false,
         );
       }
     } catch (e) {
@@ -143,6 +145,7 @@ class AudioRecordingController extends StateNotifier<AudioRecordingState> {
       UploadTask uploadTask = ref.putFile(file);
       await uploadTask;
       print('File uploaded to Firebase Storage');
+      state = state.copyWith(isRecordUploaded: true);
     } catch (e) {
       print('Error uploading file: $e');
     }

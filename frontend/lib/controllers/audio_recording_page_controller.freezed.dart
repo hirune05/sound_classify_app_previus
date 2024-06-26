@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AudioRecordingState {
   bool get recording => throw _privateConstructorUsedError;
   bool get isRecordingCompleted => throw _privateConstructorUsedError;
+  bool get isRecordUploaded => throw _privateConstructorUsedError;
   String get audioPath => throw _privateConstructorUsedError;
   String get fileName => throw _privateConstructorUsedError;
 
@@ -35,6 +36,7 @@ abstract class $AudioRecordingStateCopyWith<$Res> {
   $Res call(
       {bool recording,
       bool isRecordingCompleted,
+      bool isRecordUploaded,
       String audioPath,
       String fileName});
 }
@@ -54,6 +56,7 @@ class _$AudioRecordingStateCopyWithImpl<$Res, $Val extends AudioRecordingState>
   $Res call({
     Object? recording = null,
     Object? isRecordingCompleted = null,
+    Object? isRecordUploaded = null,
     Object? audioPath = null,
     Object? fileName = null,
   }) {
@@ -65,6 +68,10 @@ class _$AudioRecordingStateCopyWithImpl<$Res, $Val extends AudioRecordingState>
       isRecordingCompleted: null == isRecordingCompleted
           ? _value.isRecordingCompleted
           : isRecordingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isRecordUploaded: null == isRecordUploaded
+          ? _value.isRecordUploaded
+          : isRecordUploaded // ignore: cast_nullable_to_non_nullable
               as bool,
       audioPath: null == audioPath
           ? _value.audioPath
@@ -89,6 +96,7 @@ abstract class _$$AudioRecordingStateImplCopyWith<$Res>
   $Res call(
       {bool recording,
       bool isRecordingCompleted,
+      bool isRecordUploaded,
       String audioPath,
       String fileName});
 }
@@ -106,6 +114,7 @@ class __$$AudioRecordingStateImplCopyWithImpl<$Res>
   $Res call({
     Object? recording = null,
     Object? isRecordingCompleted = null,
+    Object? isRecordUploaded = null,
     Object? audioPath = null,
     Object? fileName = null,
   }) {
@@ -117,6 +126,10 @@ class __$$AudioRecordingStateImplCopyWithImpl<$Res>
       isRecordingCompleted: null == isRecordingCompleted
           ? _value.isRecordingCompleted
           : isRecordingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isRecordUploaded: null == isRecordUploaded
+          ? _value.isRecordUploaded
+          : isRecordUploaded // ignore: cast_nullable_to_non_nullable
               as bool,
       audioPath: null == audioPath
           ? _value.audioPath
@@ -136,6 +149,7 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
   const _$AudioRecordingStateImpl(
       {this.recording = false,
       this.isRecordingCompleted = false,
+      this.isRecordUploaded = false,
       this.audioPath = '',
       this.fileName = ''});
 
@@ -147,6 +161,9 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
   final bool isRecordingCompleted;
   @override
   @JsonKey()
+  final bool isRecordUploaded;
+  @override
+  @JsonKey()
   final String audioPath;
   @override
   @JsonKey()
@@ -154,7 +171,7 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
 
   @override
   String toString() {
-    return 'AudioRecordingState(recording: $recording, isRecordingCompleted: $isRecordingCompleted, audioPath: $audioPath, fileName: $fileName)';
+    return 'AudioRecordingState(recording: $recording, isRecordingCompleted: $isRecordingCompleted, isRecordUploaded: $isRecordUploaded, audioPath: $audioPath, fileName: $fileName)';
   }
 
   @override
@@ -166,6 +183,8 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
                 other.recording == recording) &&
             (identical(other.isRecordingCompleted, isRecordingCompleted) ||
                 other.isRecordingCompleted == isRecordingCompleted) &&
+            (identical(other.isRecordUploaded, isRecordUploaded) ||
+                other.isRecordUploaded == isRecordUploaded) &&
             (identical(other.audioPath, audioPath) ||
                 other.audioPath == audioPath) &&
             (identical(other.fileName, fileName) ||
@@ -173,8 +192,8 @@ class _$AudioRecordingStateImpl implements _AudioRecordingState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, recording, isRecordingCompleted, audioPath, fileName);
+  int get hashCode => Object.hash(runtimeType, recording, isRecordingCompleted,
+      isRecordUploaded, audioPath, fileName);
 
   @JsonKey(ignore: true)
   @override
@@ -188,6 +207,7 @@ abstract class _AudioRecordingState implements AudioRecordingState {
   const factory _AudioRecordingState(
       {final bool recording,
       final bool isRecordingCompleted,
+      final bool isRecordUploaded,
       final String audioPath,
       final String fileName}) = _$AudioRecordingStateImpl;
 
@@ -195,6 +215,8 @@ abstract class _AudioRecordingState implements AudioRecordingState {
   bool get recording;
   @override
   bool get isRecordingCompleted;
+  @override
+  bool get isRecordUploaded;
   @override
   String get audioPath;
   @override
