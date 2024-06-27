@@ -5,11 +5,13 @@ import numpy as np
 import soundfile as sf
 import ffmpeg
 import pathlib
-from firebase_functions import storage_fn
+from firebase_functions import storage_fn, options
 from firebase_admin import initialize_app, storage
 
 # Initialize Firebase app
 initialize_app()
+
+options.set_global_options(region=options.SupportedRegion.ASIA_NORTHEAST1)
 
 @storage_fn.on_object_finalized(bucket="audio_files")
 def process_audio(event: storage_fn.CloudEvent[storage_fn.StorageObjectData]):
