@@ -39,10 +39,10 @@ deactivate nondestructive
 if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
     # transform D:\path\to\venv to /d/path/to/venv on MSYS
     # and to /cygdrive/d/path/to/venv on Cygwin
-    export VIRTUAL_ENV=$(cygpath "/Users/tajimamiho/Documents/programing/flutterApps/now_app/sound_classify_app/frontend/functions/venv")
+    export VIRTUAL_ENV=$(cygpath "/Users/tajimamiho/Documents/programing/flutterApps/now_app/SoundFit/sound_classify_app/frontend/functions/venv")
 else
     # use the path as-is
-    export VIRTUAL_ENV="/Users/tajimamiho/Documents/programing/flutterApps/now_app/sound_classify_app/frontend/functions/venv"
+    export VIRTUAL_ENV="/Users/tajimamiho/Documents/programing/flutterApps/now_app/SoundFit/sound_classify_app/frontend/functions/venv"
 fi
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -9,7 +9,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/Users/tajimamiho/Documents/programing/flutterApps/now_app/sound_classify_app/frontend/functions/venv"
+setenv VIRTUAL_ENV "/Users/tajimamiho/Documents/programing/flutterApps/now_app/SoundFit/sound_classify_app/frontend/functions/venv"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"

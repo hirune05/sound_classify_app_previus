@@ -1,4 +1,4 @@
-#!/Users/tajimamiho/Documents/programing/flutterApps/now_app/sound_classify_app/frontend/functions/venv/bin/python3.12
+#!/Users/tajimamiho/Documents/programing/flutterApps/now_app/SoundFit/sound_classify_app/frontend/functions/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 # Copyright 2024 Google LLC
 #

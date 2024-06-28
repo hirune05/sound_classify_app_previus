@@ -1,25 +1,30 @@
+from firebase_functions import firestore_fn, https_fn, storage_fn
+from firebase_admin import initialize_app, storage, firestore
 import os
-import io
+import pathlib
 import librosa
 import numpy as np
 import soundfile as sf
 import ffmpeg
-import pathlib
+import google.cloud.firestore
 from firebase_functions import storage_fn
-from firebase_admin import initialize_app, storage
+from firebase_admin import initialize_app, storage, credentials
 
-# Initialize Firebase app
-initialize_app()
+# Firebaseアプリの初期化。ストレージバケットを明示的に指定します。
+cred = credentials.ApplicationDefault()
+initialize_app(cred, {
+    'storageBucket': 'cocomakers-sound-classify-app.appspot.com'  # バケット名を指定します
+})
 
-@storage_fn.on_object_finalized(bucket="audio_files")
+@storage_fn.on_object_finalized(bucket="cocomakers-sound-classify-app.appspot.com", region='asia-northeast1')
 def process_audio(event: storage_fn.CloudEvent[storage_fn.StorageObjectData]):
     bucket_name = event.data.bucket
     file_path = pathlib.PurePath(event.data.name)
-    content_type = event.data.contentType
-    if not content_type or not content_type.startswith("audio/m4a"):
+    content_type = event.data.content_type
+    if not content_type or not content_type.startswith("audio/x-m4a"):
         print(f"Unsupported content type: {content_type}")
         return
-    
+
     if file_path.name.startswith("edited_"):
         print("Already edited.")
         return
@@ -40,11 +45,11 @@ def process_audio(event: storage_fn.CloudEvent[storage_fn.StorageObjectData]):
         return
 
     # Audio processing
-    y, sr = librosa.load(mp3_path, sr=70000)
+    y, sr = librosa.load(mp3_path, sr=48000)
     D = librosa.stft(y)
     D_magnitude, D_phase = librosa.magphase(D)
     D_magnitude_db = librosa.amplitude_to_db(D_magnitude, ref=np.max)
-    
+
     # Amplify specific frequency band
     target_low = 2000
     target_high = 4000

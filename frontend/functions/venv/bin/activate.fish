@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/tajimamiho/Documents/programing/flutterApps/now_app/sound_classify_app/frontend/functions/venv"
+set -gx VIRTUAL_ENV "/Users/tajimamiho/Documents/programing/flutterApps/now_app/SoundFit/sound_classify_app/frontend/functions/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
