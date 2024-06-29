@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sound_classify_app/models/detail.dart';
+import 'package:sound_classify_app/services/sound_detail_service.dart';
 
 class ShareDetailDialog extends StatelessWidget {
   const ShareDetailDialog({Key? key, required Detail this.detail})
@@ -18,7 +19,10 @@ class ShareDetailDialog extends StatelessWidget {
           child: const Text('キャンセル'),
         ),
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () async => {
+            await SoundDetailService().setSoundDetail(detail),
+            Navigator.of(context).pop()
+          },
           child: const Text('共有'),
         ),
       ],

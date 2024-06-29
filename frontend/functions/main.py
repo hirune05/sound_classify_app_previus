@@ -44,8 +44,20 @@ def process_audio(event: storage_fn.CloudEvent[storage_fn.StorageObjectData]):
         print(f"Error converting m4a to mp3: {e}")
         return
 
+    # Verify that the mp3 file was created successfully
+    if not os.path.exists(mp3_path):
+        print(f"mp3 file not found at {mp3_path}")
+        return
+    else:
+        print(f"mp3 file successfully created at {mp3_path}")
+
     # Audio processing
-    y, sr = librosa.load(mp3_path, sr=48000)
+    try:
+        y, sr = librosa.load(mp3_path, sr=48000)
+    except Exception as e:
+        print(f"Error loading mp3 file with librosa: {e}")
+        return
+    
     D = librosa.stft(y)
     D_magnitude, D_phase = librosa.magphase(D)
     D_magnitude_db = librosa.amplitude_to_db(D_magnitude, ref=np.max)
